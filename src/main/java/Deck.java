@@ -13,6 +13,10 @@ public class Deck {
         return this.cards.size();
     }
 
+    public PlayingCard removeFirstCard(){
+        return this.cards.remove(0);
+    }
+
     public void populateDeck() {
 
         for (Suit suit : Suit.values()) {
@@ -42,13 +46,5 @@ public class Deck {
         Collections.shuffle(this.cards);
     }
 
-    public void dealCard(ArrayList<Player> players) {
 
-        for (Player player : players) {
-
-            PlayingCard dealtCard = this.cards.remove(0);
-            player.addCard(dealtCard);
-        }
-
-    }
 }

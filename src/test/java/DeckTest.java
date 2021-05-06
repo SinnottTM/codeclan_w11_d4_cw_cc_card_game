@@ -11,16 +11,18 @@ public class DeckTest {
     private Player player;
     private Player player2;
     private ArrayList<Player> players;
+    private Dealer dealer;
 
     @Before
     public void before() {
         deck = new Deck();
         deck.populateDeck();
-        player = new Player();
-        player2 = new Player();
+        player = new Player("Tim");
+        player2 = new Player("Alex");
         players = new ArrayList<Player>();
         players.add(player);
         players.add(player2);
+        dealer = new Dealer();
     }
 
     @Test
@@ -39,9 +41,9 @@ public class DeckTest {
         PlayingCard card = deck.findCard(0);
         PlayingCard card2 = deck.findCard(25);
         assertEquals(Suit.HEARTS, card.getSuit());
-        assertEquals(Rank.KING.TWO, card.getRank());
+        assertEquals(Rank.ACE, card.getRank());
         assertEquals(Suit.DIAMONDS, card2.getSuit());
-        assertEquals(Rank.ACE, card2.getRank());
+        assertEquals(Rank.KING, card2.getRank());
     }
 
     @Test
@@ -49,7 +51,7 @@ public class DeckTest {
         PlayingCard card = deck.findCard(0);
         PlayingCard card3 = deck.findCard(25);
         deck.shuffle();
-        PlayingCard card2 = deck.findCard(0);
+        PlayingCard card2 = deck.findCard(2);
         PlayingCard card4 = deck.findCard(25);
         assertNotSame(card, card2);
         assertNotSame(card3, card4);
@@ -57,8 +59,8 @@ public class DeckTest {
 
     @Test
     public void canDealCard() {
-        deck.dealCard(players);
-        assertEquals(50, deck.countCards());
+        dealer.dealCard(players);
+        assertEquals(52, deck.countCards());
         assertEquals(1, player.countHand());
         assertEquals(1, player2.countHand());
     }
